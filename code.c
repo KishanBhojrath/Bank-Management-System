@@ -10,7 +10,7 @@ void depositcheck(void);
 void deposit();
 void balancecheck(void);
 void check(char*);
-void menu(void){
+void menu(void){    //function for menu interface
     system("cls");
     int option;
     printf("Welcome to Bank Management System");
@@ -23,7 +23,7 @@ void menu(void){
      
      scanf("%d",&option);
 
-     switch(option){
+     switch(option){   // switch- case for option select
      case 1:
      account();
      case 2:
@@ -56,12 +56,12 @@ int money;
 };
 
 
-void account(void){
+void account(void){  //function to Create an account and take inputs from user
 char password[25];
 char pass;
 FILE *user;
-struct details p1;
-user=fopen("database.txt","ab");
+struct details p1;  //creating an object of structure
+user=fopen("database.txt","ab");  // creating/opening file 
  printf("\n""Create your account");
   printf("\n""Enter your Details");
    printf("\n""First Name:");
@@ -87,7 +87,7 @@ user=fopen("database.txt","ab");
     printf("\n Enter your login username:");
     scanf("%s",&p1.username);
     printf("\n Enter you password:");
-    for(int i=0;i<25;i++){
+    for(int i=0;i<25;i++){        // code block for getting password in * format
         pass=getch();
         if(pass!=13){
             password[i]=pass;
@@ -112,12 +112,15 @@ user=fopen("database.txt","ab");
 
 void accountcreated(void){
     printf("\n Account created!!,Thank you for joining us!\n" );
+	
+	printf("Press enter to return to menu");
+	getch();
     menu();
     
     
 }
 
-void userdetails(void){
+void userdetails(void){  // function for checking if entered username is present in File or not
     system("cls");
     char username[15];
     FILE *user;
@@ -180,13 +183,13 @@ void deposit(void)
 	
 	FILE *user, *mn;
 	struct details p1;
-	struct money m1;
+	struct money m1;    //creating object of money structure
 	char usernamet[20];
 	char usernamep[20];
 	system("cls");
 
-	user = fopen("database.txt", "rb");
-	mn = fopen("mon.txt", "ab");
+	user = fopen("database.txt", "rb");    
+	mn = fopen("mon.txt", "ab");      //initialising file
 
 	
 	printf("**Money Deposit** \n Enter the username for deposit \n USERNAME:");
@@ -220,7 +223,7 @@ void deposit(void)
 
 
 
-void balancecheck(void){
+void balancecheck(void){    // function to verify if username is present or not
     FILE *user;
     struct details p1;
     char usern[25];
@@ -240,12 +243,12 @@ void balancecheck(void){
     }
     fclose(user); 
 }
-void check(char name[])
+void check(char name[])   // function to print deposit history and total balance
 {
 	
 	FILE* fm;
 	struct money m1;
-	int amount = 0;
+	int amount = 0;   //initialising amount with zero
 
 	
 	fm = fopen("mon.txt", "rb");
