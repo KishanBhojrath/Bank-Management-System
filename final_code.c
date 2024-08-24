@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<conio.h>
 #include<string.h>
-void accountcreated(void);
+void accountcreated(void);  //declaring functions beforehand
 void account(void);
 void userdetails(void);
 void display(char*);
@@ -10,7 +10,7 @@ void depositcheck(void);
 void deposit();
 void balancecheck(void);
 void check(char*);
-void menu(void){
+void menu(void){              //function of main menu interface
     system("cls");
     int option;
     printf("Welcome to Bank Management System");
@@ -23,7 +23,7 @@ void menu(void){
      
      scanf("%d",&option);
 
-     switch(option){
+     switch(option){        // switch case for selecting the option
      case 1:
      account();
      case 2:
@@ -35,7 +35,7 @@ void menu(void){
      
      }
 }
-struct details{
+struct details{        //structure to store personal details of user
     char firstname[25];
     char lastname[25];
     int date;
@@ -49,18 +49,18 @@ struct details{
     char username[15];
     
 };
-struct money{
+struct money{        //structure for money records
 char username[25];
 int money;
 
 };
 
 
-void account(void){
+void account(void){      //function to create a new account and store info in file
 char password[25];
 char pass;
 FILE *user;
-struct details p1;
+struct details p1;       //assignment operator p1
 user=fopen("database.txt","ab");
  printf("\n""Create your account");
   printf("\n""Enter your Details");
@@ -87,7 +87,7 @@ user=fopen("database.txt","ab");
     printf("\n Enter your login username:");
     scanf("%s",&p1.username);
     printf("\n Enter you password:");
-    for(int i=0;i<25;i++){
+    for(int i=0;i<25;i++){     // code to get passsword and show "*" on screen
         pass=getch();
         if(pass!=13){
             password[i]=pass;
@@ -101,16 +101,16 @@ user=fopen("database.txt","ab");
 
 
 
-    fwrite(&p1,sizeof(p1),1,user);
-    fclose(user);
+    fwrite(&p1,sizeof(p1),1,user);   //writing to binary file
+    fclose(user);                    //closing the file 
 
-    accountcreated();
+    accountcreated();        
     
 
 }
 
 
-void accountcreated(void){
+void accountcreated(void){    //confirming the account creation
     printf("\n Account created!!,Thank you for joining us!\n" );
     printf("\n \n Press enter to return to menu");
     getch();
@@ -119,7 +119,7 @@ void accountcreated(void){
     
 }
 
-void userdetails(void){  // function 
+void userdetails(void){  // function to display user details from file
     system("cls");
     char username[15];
     FILE *user;
@@ -129,10 +129,10 @@ void userdetails(void){  // function
     scanf("%s",&username);
     while (fread(&p1, sizeof(p1),1, user)) 
     {
-		if (strcmp(username,p1.username)== 0) 
+		if (strcmp(username,p1.username)== 0)   //checking if username is present
         {
 
-			display(username);
+			display(username);        // calling display if  username found
 		}
         
 	}
@@ -145,7 +145,7 @@ void userdetails(void){  // function
             menu();
 
 }
-void display(char user_name[])
+void display(char user_name[])    //function to display details 
 {
 	system("cls");
 	FILE* user;
@@ -161,7 +161,7 @@ void display(char user_name[])
     {
 		if (strcmp(user_name,p1.username)== 0) 
         {
-			printf("**User details:**\n Name:%s %s",p1.firstname, p1.lastname);
+	    printf("**User details:**\n Name:%s %s",p1.firstname, p1.lastname);   //printing info on the screen
             printf("\n Date of birth:%d-%d-%d",p1.date,p1.month,p1.year);
             printf("\n Father's Name:%s",p1.father_name);
             printf("\n Mother's Name:%s",p1.mother_name);
@@ -179,7 +179,7 @@ void display(char user_name[])
     
 
 }
-void deposit(void)
+void deposit(void)       //function to deposit amount
 {
 	
 	FILE *user, *mn;
@@ -188,7 +188,7 @@ void deposit(void)
 	char usernamet[20];
 	char usernamep[20];
 	system("cls");
-    int flag=0;
+        int flag=0; // initializing flag with 0
 
 	user = fopen("database.txt", "rb");
 	mn = fopen("mon.txt", "ab");
@@ -203,23 +203,23 @@ void deposit(void)
 		if (strcmp(usernamep,p1.username)== 0) 
         {
 		    strcpy(m1.username,p1.username);
-            flag++;
+            flag++;                                     // incrementing flag if username found
 		}
         
 	}
-    if(flag==0){
+    if(flag==0){                                    //not found flag=0
         printf("\n Username not found in records");
         printf("\n Press Enter to return to menu");
         getch();
         menu();
     }
-    else{
+    else{                                      //found
 
 	
 	printf("Enter the amount to be deposited:");
-	scanf("%d", &m1.money);
+	scanf("%d", &m1.money);               //taking input directly to strucutre
 
-	fwrite(&m1, sizeof(m1),1, mn);
+	fwrite(&m1, sizeof(m1),1, mn);       //writing to file
 
 	printf("\n Amount Deposited Successfully!!!");
 	
@@ -235,7 +235,7 @@ void deposit(void)
 
 
 
-void balancecheck(void){
+void balancecheck(void){      //function to show balance
     FILE *user;
     struct details p1;
     char usern[25];
@@ -247,7 +247,7 @@ void balancecheck(void){
     scanf("%s",&usern);
     while(fread(&p1,sizeof(p1),1,user))
     {
-        if(strcmp(usern,p1.username)==0)
+        if(strcmp(usern,p1.username)==0)     //checking if username present in file
             {
                 check(usern);
             }
@@ -255,12 +255,12 @@ void balancecheck(void){
     }
     fclose(user); 
 }
-void check(char name[])
+void check(char name[])   //function to display the deposit history and total balance
 {
 	
 	FILE* fm;
 	struct money m1;
-	int amount = 0;
+	int amount = 0;     // initialising amount with 0
 
 	
 	fm = fopen("mon.txt", "rb");
@@ -268,16 +268,14 @@ void check(char name[])
 	printf("\n Deposit History:");
 	while (fread(&m1, sizeof(m1),1, fm)) {
 		if (strcmp(name,m1.username)== 0) {
-			
-			
             
-            printf("\n%d",m1.money);
+			printf("\n%d",m1.money);     //printing past deposits
 			
-			amount = amount + m1.money;
+			amount = amount + m1.money;   // adding all deposits in amount
 		}
 	}
 	printf("\n Currert Balance:");
-	printf("%d", amount);
+	printf("%d", amount);     //priting final added amount
 	fclose(fm);
 	printf("\n Press enter to return to menu....");
     getch();
