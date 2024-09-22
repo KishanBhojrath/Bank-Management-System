@@ -11,7 +11,7 @@ void deposit();
 void balancecheck(void);
 void check(char*);
 void withdraw(void);
-void menu(void){
+void menu(void){      //main menu function
     system("cls");
     int option;
     printf("Welcome to Bank Management System");
@@ -26,7 +26,7 @@ void menu(void){
      
      scanf("%d",&option);
 
-     switch(option){
+     switch(option){   //switch case for selection of option
      case 1:
      account();
      case 2:
@@ -40,7 +40,7 @@ void menu(void){
      
      }
 }
-struct details{
+struct details{   //structure for personal details
     char firstname[25];
     char lastname[25];
     int date;
@@ -54,14 +54,14 @@ struct details{
     char username[15];
     
 };
-struct money{
+struct money{        //structure for handling money
 char username[25];
 signed int money;
 
 };
 
 
-void account(void){
+void account(void){     //function to create new account
 system("cls");
 char password[25];
 char username[15];
@@ -73,10 +73,10 @@ user=fopen("database.txt","ab+");
   printf("\n""Enter your Details");
    printf("\n Enter your login username:");
     scanf("%s",&username);
-     while (fread(&p1, sizeof(p1),1, user)) 
+     while (fread(&p1, sizeof(p1),1, user))        //searching through while loop
     {
         
-		if (strcmp(username,p1.username)== 0) 
+		if (strcmp(username,p1.username)== 0)       //comparing
         {
 			printf("\n Sorry! This username already exists!!");
             printf("Try another username!!");
@@ -92,7 +92,7 @@ user=fopen("database.txt","ab+");
        printf("\n Enter Username:");
     scanf("%s",&p1.username);
     printf("\n Enter you password:");
-    for(int i=0;i<25;i++){
+    for(int i=0;i<25;i++){                    // code to print in *
         pass=getch();
         if(pass!=13){
             password[i]=pass;
@@ -144,7 +144,7 @@ void accountcreated(void){
     
 }
 
-void userdetails(void){  
+void userdetails(void){   //function to print all the details of user
     system("cls");
     char username[15];
     FILE *user;
@@ -204,7 +204,7 @@ void display(char user_name[])
     
 
 }
-void deposit(void)
+void deposit(void)      //function to deposit in account
 {
 	
 	FILE *user, *mn;
@@ -260,7 +260,7 @@ void deposit(void)
 
 
 
-void balancecheck(void){
+void balancecheck(void){       // function to check balance
     FILE *user;
     struct details p1;
     char usern[25];
@@ -309,7 +309,7 @@ void check(char name[])
     menu();
 
 }
-void withdraw(void)
+void withdraw(void)       //function to withdraw money
 {
 	
 	FILE *user, *mn;
